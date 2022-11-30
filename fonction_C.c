@@ -84,4 +84,4 @@ void vente_et_prix_stockage(int vente, int* stock, float* prix_stock, float* pri
     *prix_stock += (*stock) * (*prix_stockage);
 }
 
-// gcc -fPIC -shared -o fonction_C.so fonction.c
+// gcc -fPIC -shared -o fonction_C.dll fonction.c
