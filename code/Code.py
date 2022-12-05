@@ -18,6 +18,7 @@ test = [1, 2, 3]
 tab = ( c_int * len(conso))(*conso)
 
 print("oui\n" ,*tab)
+article = c_char(input("Entrer l'article concerné (X ou Y)"))
 vente = c_int(0)
 stock = c_int (0)
 seuil = c_int(0)
@@ -27,4 +28,4 @@ delais = c_int(0)
 prix_stock = c_int(0)
 cout_total = c_int(0)
 
-functions.calcul(pointer(vente), pointer(stock), pointer(seuil), pointer(nombre_de_commande), pointer(taille_commande), pointer(delais), pointer(prix_stock), pointer(cout_total))
+functions.calcul(pointer(article),pointer(vente), pointer(stock), pointer(seuil), pointer(nombre_de_commande), pointer(taille_commande), pointer(delais), pointer(prix_stock), pointer(cout_total))

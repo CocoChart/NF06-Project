@@ -2,8 +2,21 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-void calcul(int *vente, int *stock, int *seuil, int *nombre_de_commande, int *taille_commande, int *delais, float *prix_stock, float *cout_total)
+void calcul(char *article, int *vente, int *stock, int *seuil, int *nombre_de_commande, int *taille_commande, int *delais, float *prix_stock, float *cout_total)
 {
+    int delai_approv, prix_uni;
+    if (article == "X")
+    {
+        prix_uni = 45;
+        stock = 5;
+        delai_approv = 1;
+    }
+    else if (article == "Y")
+    {
+        prix_uni = 15;
+        stock = 65;
+        delai_approv = 2;
+    }
 
     for (int numero_mois = 0; numero_mois < 12; numero_mois++)
     {
@@ -18,7 +31,7 @@ void calcul(int *vente, int *stock, int *seuil, int *nombre_de_commande, int *ta
             *delais = 1;
             *taille_commande = (5 * 3) + (*seuil - *stock);
             *nombre_de_commande++;
-            *cout_total += *taille_commande * 45 + 76;
+            *cout_total += *taille_commande * prix_uni /*45*/ + 76;
         }
         printf("commande : %d\n", *taille_commande);
         if (*stock <= *seuil)
