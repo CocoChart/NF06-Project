@@ -22,4 +22,4 @@ delais = c_int(0)
 prix_stock = c_int(0)
 cout_total = c_int(0)
 
-#functions.calcul(pointer(vente), pointer(stock), pointer(seuil), pointer(nombre_de_commande), pointer(taille_commande), pointer(delais), pointer(prix_stock), pointer(cout_total))
+functions.calcul(pointer(vente), pointer(stock), pointer(seuil), pointer(nombre_de_commande), pointer(taille_commande), pointer(delais), pointer(prix_stock), pointer(cout_total))
