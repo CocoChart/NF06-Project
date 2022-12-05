@@ -1,3 +1,4 @@
+
 import matplotlib as plt
 import numpy as np
 import pandas as pd
@@ -8,11 +9,15 @@ from tkinter import *
 functions = CDLL("./functions.dll")
 
 with open("./Conso.csv") as f :
+    print("la bite")
     conso = pd.read_csv(f)
 print(conso)
 
-print(conso["X"]["Mar"])
+print(conso["X"])
+test = [1, 2, 3]
+tab = ( c_int * len(conso))(*conso)
 
+print("oui\n" ,*tab)
 vente = c_int(0)
 stock = c_int (0)
 seuil = c_int(0)
