@@ -1,6 +1,6 @@
 import ctypes
 
-_sum = ctypes.CDLL(r"C:\Users\cocha\OneDrive\Documents\Cours\NF06\NF06-Project\tests\libsum.so")
+_sum = ctypes.CDLL(r"C:\Users\mkjav\OneDrive - Université de Technologie de Troyes\Documents\Cours\NF06\Projet\NF06-Project\tests\libsum.so")
 final = 0  
 final2 = ctypes.c_int(final)
 nombre1 = 5
