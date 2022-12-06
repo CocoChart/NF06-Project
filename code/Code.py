@@ -18,6 +18,7 @@ functions = CDLL("./fonction.dll")
 # tab = ( c_int * len(conso))(*conso)
 
 # print("oui\n" ,*tab)
+article = c_char(input("Entrer l'article concerné (X ou Y)"))
 vente = c_int(0)
 delais = c_int(0)
 stock = c_int (65)
