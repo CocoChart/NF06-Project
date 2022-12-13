@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+/// Pour compiler en DLL : gcc  -s -shared -O2 -o functions.dll -fPIC fonction_C.c
+
 void reception(int *delais, int *stock, int *commande) // Fonction qui vérifie si une commande est arrivée et ajuste les stock en conséquence
 {
     // printf("\nReception\n");
@@ -10,7 +12,7 @@ void reception(int *delais, int *stock, int *commande) // Fonction qui vérifie 
         *stock += *commande; // incrémente le stock de la valeur de la commande
         *commande = 0;       // remet la valeur du stock à 0 pour éviter d'augmenter plusieurs fois le stock avec la même commande
     }
-    printf("Stock C :%d\n", *stock);
+    // printf("Stock C :%d\n", *stock);
 }
 void passage_commande_compteur_mois(int *stock, int *delais, int *commande, int *nombre_commande, int temp_commande, int Vmoyenne, int seuil, float *cout_total, float prix, float prix_commande)
 { // Fonction qui vérifie les stocks, passe une commande si besoin et actualise le delais de livraison
@@ -21,7 +23,7 @@ void passage_commande_compteur_mois(int *stock, int *delais, int *commande, int 
         *commande = (Vmoyenne * (temp_commande + 2)) + (seuil - *stock);  // passe commande du nombre de produit déterminé par calcul pour limiter les stock et éviter les ruptures
         *nombre_commande += 1;                                            // garde une trace du nombre de commande effectué
         *cout_total = *cout_total + ((*commande * prix) + prix_commande); // incrémente les cout totaux du prix de la commande
-        printf("Cout total C : %f \n\n", *cout_total);
+        // printf("Cout total C : %f \n\n", *cout_total);
     }
     if (*stock <= seuil) // Vérifie si une commande est en cours
     {
@@ -34,7 +36,7 @@ void vente_et_prix_stockage(int vente, int *stock, float *cout_stock, float prix
 {
     // printf("vente et prix stockage\n");
     *stock -= vente; // diminue les stock
-    printf("Stock apres vente :%d\n", *stock);
+    // printf("Stock apres vente :%d\n", *stock);
     if (*stock < 0) // vérifie si il y a une rupture de stock
     {
         *cout_total += prix * 0.1 * abs(*stock); // Incrémente le coût total du coût de rupture
