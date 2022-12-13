@@ -189,32 +189,35 @@ fenetre=Tk()
 
 ##Création des colonnes
 for i in range(6):
-    Button(fenetre, text=noms_colonnes[i], borderwidth=1,width=15).grid(row=0, column=i)
+    Button(fenetre, text=noms_colonnes[i], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=0, column=i)
 ##Remplissage du tableau ligne par ligne
 for ligne in range(24):
-    Button(fenetre, text=liste_mois[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=0)
-    Button(fenetre, text=commandes_X[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=1)
-    Button(fenetre, text=reception_X[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=2)
-    Button(fenetre, text=sorties_X[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=3)
-    Button(fenetre, text=niveau_stock_X[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=4)
-    Button(fenetre, text=stock_moy_X[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=5)
+    Button(fenetre, text=liste_mois[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=0)
+    Button(fenetre, text=commandes_X[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=1)
+    Button(fenetre, text=reception_X[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=2)
+    Button(fenetre, text=sorties_X[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=3)
+    Button(fenetre, text=niveau_stock_X[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=4)
+    Button(fenetre, text=stock_moy_X[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=5)
 
 for ligne in range(24):
-    Button(fenetre, text=' ', borderwidth=1,width=15).grid(row=ligne+1, column=6)
+    Button(fenetre, text=' ', borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=6)
 
 ##Création des colonnes
 for i in range(7,13):
-    Button(fenetre, text=noms_colonnes[i-7], borderwidth=1,width=15).grid(row=0, column=i)
+    Button(fenetre, text=noms_colonnes[i-7], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=0, column=i)
 ##Remplissage du tableau ligne par ligne
 for ligne in range(24):
-    Button(fenetre, text=liste_mois[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=7)
-    Button(fenetre, text=commandes_Y[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=8)
-    Button(fenetre, text=reception_Y[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=9)
-    Button(fenetre, text=sorties_Y[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=10)
-    Button(fenetre, text=niveau_stock_Y[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=11)
-    Button(fenetre, text=stock_moy_Y[ligne], borderwidth=1,width=15).grid(row=ligne+1, column=12)
+    Button(fenetre, text=liste_mois[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=7)
+    Button(fenetre, text=commandes_Y[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=8)
+    Button(fenetre, text=reception_Y[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=9)
+    Button(fenetre, text=sorties_Y[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=10)
+    Button(fenetre, text=niveau_stock_Y[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=11)
+    Button(fenetre, text=stock_moy_Y[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=12)
 
-fenetre.mainloop()
+##Affiche le tableau sans bloquer le programme, ce qui permet d'afficher le graphique en même temps
+async def affichage():
+    fenetre.mainloop()
+affichage()
 
 plt.plot(niveau_stock_X, label="Stock de X",marker='o',markersize=3)
 plt.plot(niveau_stock_Y, label="Stock de Y", marker='o',markersize=3)
