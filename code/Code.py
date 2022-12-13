@@ -4,7 +4,7 @@ import statistics as st
 import matplotlib as plt
 from tkinter import * 
 
-functions = CDLL("./functions.dll")
+functions = CDLL("./fonction.dll")
 def lecture(tabX,tabY): #Fonction qui lit le tableau des ventes depuis un csv
     with open("./Conso.csv") as f :
         conso = pd.read_csv(f)
@@ -30,9 +30,9 @@ print(calc_moy_X)
 prix_commande = c_int(76)
 
 vente_X = c_int(0)
-prix_X = c_int(45)
+prix_X = c_float(45)
 stock_X = c_int (5)
-moy_X = c_float(calc_moy_X)
+moy_X = c_int(calc_moy_X)
 seuil_X = c_int(15)
 nombre_de_commande_X = c_int(0)
 taille_commande_X =  c_int(0)

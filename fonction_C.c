@@ -12,7 +12,7 @@ void reception(int *delais, int *stock, int *commande) // Fonction qui vérifie 
     }
     printf("Stock C :%d\n", *stock);
 }
-void passage_commande_compteur_mois(int *stock, int *delais, int *commande, int *nombre_commande, int temp_commande, float Vmoyenne, int seuil, float *cout_total, float prix, float prix_commande)
+void passage_commande_compteur_mois(int *stock, int *delais, int *commande, int *nombre_commande, int temp_commande, int Vmoyenne, int seuil, float *cout_total, float prix, float prix_commande)
 { // Fonction qui vérifie les stocks, passe une commande si besoin et actualise le delais de livraison
     // printf("passage de commande et compteur mois\n");
     if (*stock <= seuil && *delais == 0) // vériie si les stock sont en dessous du seuil et qu'aucune commande n'est déjà en cours. si ces conditions sont vérifié alors on passe une nouvlle commande
@@ -21,7 +21,7 @@ void passage_commande_compteur_mois(int *stock, int *delais, int *commande, int 
         *commande = (Vmoyenne * (temp_commande + 2)) + (seuil - *stock);  // passe commande du nombre de produit déterminé par calcul pour limiter les stock et éviter les ruptures
         *nombre_commande += 1;                                            // garde une trace du nombre de commande effectué
         *cout_total = *cout_total + ((*commande * prix) + prix_commande); // incrémente les cout totaux du prix de la commande
-        printf("Cout total C : %f \n", *cout_total);
+        printf("Cout total C : %f \n\n", *cout_total);
     }
     if (*stock <= seuil) // Vérifie si une commande est en cours
     {
@@ -34,7 +34,7 @@ void vente_et_prix_stockage(int vente, int *stock, float *cout_stock, float prix
 {
     // printf("vente et prix stockage\n");
     *stock -= vente; // diminue les stock
-    printf("Stock après - :%d\n", *stock);
+    printf("Stock apres vente :%d\n", *stock);
     if (*stock < 0) // vérifie si il y a une rupture de stock
     {
         *cout_total += prix * 0.1 * abs(*stock); // Incrémente le coût total du coût de rupture
@@ -44,7 +44,7 @@ void vente_et_prix_stockage(int vente, int *stock, float *cout_stock, float prix
     *cout_stock += (*stock) * (prix_stockage); // Calcule le cout de stockage des produit restant dans l'entrepot
 }
 
-void calcul(int *stock, float Vmoyenne, int seuil, int *nombre_de_commande, int *taille_commande, int temp_commande, float prix, float prix_commande, float prix_stockage, float *cout_stock, float *cout_total)
+void calcul(int *stock, int Vmoyenne, int seuil, int *nombre_de_commande, int *taille_commande, int temp_commande, float prix, float prix_commande, float prix_stockage, float *cout_stock, float *cout_total)
 // Fonction générale executant le programme pour 12 mois et affiche les résultats
 {
     printf("stock : %d\n", *stock);
