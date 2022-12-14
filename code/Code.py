@@ -54,6 +54,39 @@ cout_total_X = c_float(0)
 i=0
 
 
+
+# Pour pouvoir utiliser les nouvelles fonctions en c qui prennent en compte le stock total et évite de payer deux fois le prix de commande
+# quand deux commande sont passé le même mois il faut déclarer X et Y avant d'utiliser les fonctions
+
+##Calcule les ventes moyennes sur l'année de Y
+calc_moy_Y = int(st.mean(consoY) + 1)
+
+
+##Nombre de ventes de Y
+vente_Y = c_int(0)
+##Prix unitaire de Y
+prix_Y = c_float(15)
+##Nombre de produits en stock
+stock_Y = c_int (65)
+##Valeur en format C de la moyenne des ventes
+moy_Y = c_int(calc_moy_Y)
+##Point de commande
+seuil_Y = c_int(90)
+nombre_de_commande_Y = c_int(0)
+taille_commande_Y =  c_int(0)
+temps_livraison_Y = c_int(2)
+##Délai avant la prochaine livraison
+delais_Y = c_int(0)
+prix_stockage_Y = c_float(0.25) # = 0,2 * prix_Y / 12
+cout_stock_Y = c_float(0)
+cout_total_Y = c_float(0)   
+
+# je rajoute la veleur de stock max :
+stock_max = c_int(150)
+
+
+
+
 commandes_X=[]
 reception_X=[]
 sorties_X=[]
@@ -74,7 +107,7 @@ for i in range (0,11+1) :
     niveau_stock_X.append(stock_X.value)
     
 
-    functions.passage_commande_compteur_mois(pointer(stock_X), pointer(delais_X), pointer(taille_commande_X), pointer(nombre_de_commande_X), temps_livraison_X,moy_X, seuil_X, pointer(cout_total_X), prix_X, prix_commande)
+    functions.passage_commande_compteur_mois(pointer(stock_X),pointer(stock_Y),stock_max, pointer(delais_X), pointer(delais_Y), pointer(taille_commande_X), pointer(nombre_de_commande_X), temps_livraison_X ,temps_livraison_Y ,moy_X, seuil_X, pointer(cout_total_X), prix_X, prix_commande)
     commandes_X.append(taille_commande_X.value)
     commandes_X.append(' ')
 
@@ -108,28 +141,28 @@ print(stock_moy_X)'''
 
 #--------------------------------------------Article Y-------------------------------------------------------------
 
-##Calcule les ventes moyennes sur l'année de Y
-calc_moy_Y = int(st.mean(consoY) + 1)
+# ##Calcule les ventes moyennes sur l'année de Y
+# calc_moy_Y = int(st.mean(consoY) + 1)
 
 
-##Nombre de ventes de Y
-vente_Y = c_int(0)
-##Prix unitaire de Y
-prix_Y = c_float(15)
-##Nombre de produits en stock
-stock_Y = c_int (65)
-##Valeur en format C de la moyenne des ventes
-moy_Y = c_int(calc_moy_Y)
-##Point de commande
-seuil_Y = c_int(90)
-nombre_de_commande_Y = c_int(0)
-taille_commande_Y =  c_int(0)
-temps_livraison_Y = c_int(2)
-##Délai avant la prochaine livraison
-delais_Y = c_int(0)
-prix_stockage_Y = c_float(0.25) # = 0,2 * prix_Y / 12
-cout_stock_Y = c_float(0)
-cout_total_Y = c_float(0)   
+# ##Nombre de ventes de Y
+# vente_Y = c_int(0)
+# ##Prix unitaire de Y
+# prix_Y = c_float(15)
+# ##Nombre de produits en stock
+# stock_Y = c_int (65)
+# ##Valeur en format C de la moyenne des ventes
+# moy_Y = c_int(calc_moy_Y)
+# ##Point de commande
+# seuil_Y = c_int(90)
+# nombre_de_commande_Y = c_int(0)
+# taille_commande_Y =  c_int(0)
+# temps_livraison_Y = c_int(2)
+# ##Délai avant la prochaine livraison
+# delais_Y = c_int(0)
+# prix_stockage_Y = c_float(0.25) # = 0,2 * prix_Y / 12
+# cout_stock_Y = c_float(0)
+# cout_total_Y = c_float(0)   
 #print(cout_total_Y.value)
 i=0
 
@@ -154,7 +187,7 @@ for i in range (0,11+1) :
     niveau_stock_Y.append(stock_Y.value)
     
 
-    functions.passage_commande_compteur_mois(pointer(stock_Y), pointer(delais_Y), pointer(taille_commande_Y), pointer(nombre_de_commande_Y), temps_livraison_Y,moy_Y, seuil_Y, pointer(cout_total_Y), prix_Y, prix_commande)
+    functions.passage_commande_compteur_mois(pointer(stock_Y),pointer(stock_X),stock_max, pointer(delais_Y), pointer(delais_X), pointer(taille_commande_Y), pointer(nombre_de_commande_Y), temps_livraison_Y,temps_livraison_X, moy_Y, seuil_Y, pointer(cout_total_Y), prix_Y, prix_commande)
     commandes_Y.append(taille_commande_Y.value)
     commandes_Y.append(' ')
 
