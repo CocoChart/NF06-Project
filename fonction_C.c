@@ -14,7 +14,7 @@ void reception(int *delais_principal, int *stock_Principal, int *commande) // Fo
     }
     // printf("Stock C :%d\n", *stock);
 }
-void passage_commande_compteur_mois(int *stock_principal, int *stock_annexe, int stock_max, int *delais_P, int *delais_A, int *commande, int *nombre_commande, int temp_commande_P,int temp_commande_A, int Vmoyenne, int seuil, float *cout_total, float prix, float prix_commande)
+void passage_commande(int *stock_principal, int *stock_annexe, int stock_max, int *delais_P, int *delais_A, int *commande, int *nombre_commande, int temp_commande_P,int temp_commande_A, int Vmoyenne, int seuil, float *cout_total, float prix, float prix_commande)
 { // Fonction qui vérifie les stocks, passe une commande si besoin et actualise le delais de livraison
     // printf("passage de commande et compteur mois\n");
     if (*stock_principal <= seuil && *commande == 0) // vériie si les stock sont en dessous du seuil et qu'aucune commande n'est déjà en cours. si ces conditions sont vérifié alors on passe une nouvlle commande
@@ -38,11 +38,18 @@ void passage_commande_compteur_mois(int *stock_principal, int *stock_annexe, int
         *delais_P = temp_commande_P;      // incrémente le delais de livraison du temp de livraison determiné par le produit concerné
     }
     
-    
-    
-    if (*stock_principal <= seuil) // Vérifie si une commande est en cours
+}    
+void passage_de_mois( int *stock_principal,int *stock_annexe, int seuil_P, int seuil_A, int* delais_P, int* delais_A)
+{
+    if (*stock_principal <= seuil_P) // Vérifie si une commande est en cours
     {
         *delais_P -= 1; // Diminue le délais de livraison, simulant le passage d'un mois
+        
+    }
+    if (*stock_annexe <= seuil_A) // Vérifie si une commande est en cours
+    {
+        *delais_A -= 1; // Diminue le délais de livraison, simulant le passage d'un mois
+        
     }
 }
 

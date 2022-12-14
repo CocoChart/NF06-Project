@@ -107,9 +107,11 @@ for i in range (0,11+1) :
     niveau_stock_X.append(stock_X.value)
     
 
-    functions.passage_commande_compteur_mois(pointer(stock_X),pointer(stock_Y),stock_max, pointer(delais_X), pointer(delais_Y), pointer(taille_commande_X), pointer(nombre_de_commande_X), temps_livraison_X ,temps_livraison_Y ,moy_X, seuil_X, pointer(cout_total_X), prix_X, prix_commande)
+    functions.passage_commande(pointer(stock_X),pointer(stock_Y),stock_max, pointer(delais_X), pointer(delais_Y), pointer(taille_commande_X), pointer(nombre_de_commande_X), temps_livraison_X ,temps_livraison_Y ,moy_X, seuil_X, pointer(cout_total_X), prix_X, prix_commande)
     commandes_X.append(taille_commande_X.value)
     commandes_X.append(' ')
+
+    functions.passage_de_mois(pointer(stock_X), pointer(stock_Y), seuil_X, seuil_Y, pointer(delais_X), pointer(delais_Y))
 
     functions.vente_et_prix_stockage(vente_X, pointer(stock_X), pointer(cout_stock_X), prix_X, prix_stockage_X, pointer(cout_total_X))
     niveau_stock_X.append(stock_X.value)
@@ -187,10 +189,12 @@ for i in range (0,11+1) :
     niveau_stock_Y.append(stock_Y.value)
     
 
-    functions.passage_commande_compteur_mois(pointer(stock_Y),pointer(stock_X),stock_max, pointer(delais_Y), pointer(delais_X), pointer(taille_commande_Y), pointer(nombre_de_commande_Y), temps_livraison_Y,temps_livraison_X, moy_Y, seuil_Y, pointer(cout_total_Y), prix_Y, prix_commande)
+    functions.passage_commande(pointer(stock_Y),pointer(stock_X),stock_max, pointer(delais_Y), pointer(delais_X), pointer(taille_commande_Y), pointer(nombre_de_commande_Y), temps_livraison_Y,temps_livraison_X, moy_Y, seuil_Y, pointer(cout_total_Y), prix_Y, prix_commande)
     commandes_Y.append(taille_commande_Y.value)
     commandes_Y.append(' ')
 
+    functions.passage_de_mois(pointer(stock_Y), pointer(stock_X), seuil_Y, seuil_X, pointer(delais_Y), pointer(delais_X))
+    
     functions.vente_et_prix_stockage(vente_Y, pointer(stock_Y), pointer(cout_stock_Y), prix_Y, prix_stockage_Y, pointer(cout_total_Y))
     niveau_stock_Y.append(stock_Y.value)
     #print("Cout total Py : ", cout_total_Y.value)
