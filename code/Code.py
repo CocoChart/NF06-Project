@@ -35,7 +35,7 @@ calc_moy_X = int(st.mean(consoX) + 1)
 #print(calc_moy_X)
 
 ##Prix d'une commande
-prix_commande = c_int(76)
+prix_commande = c_float(76)
 
 ##Nombre de ventes de X
 vente_X = c_int(0)
@@ -47,17 +47,18 @@ stock_X = c_int (5)
 moy_X = c_int(calc_moy_X)
 ##Point de commande
 seuil_X = c_int(15)
+seuil_max_X = c_int(25)
 nombre_de_commande_X = c_int(0)
 taille_commande_X =  c_int(0)
 temps_livraison_X = c_int(1)
+cycle_X = c_int(3)
 ##Délai avant la prochaine livraison
 delais_X = c_int(0)
 prix_stockage_X = c_float(0.75) # = 0,2 * prix_X / 12
 cout_stock_X = c_float(0)
+cout_rupture_X = c_float(0)
 cout_total_X = c_float(0)   
 #print(cout_total_X.value)
-# Pour utiliser les fonctions qui permettent de prendre en compte le stock total et d'éviter de payer deux fois le prix de commande lorsque deux commandes sont passé le même mois il faut déclarer les valeurs liées à X ET Y avant d'utiliser les fonctions
-
 ##Calcule les ventes moyennes sur l'année de Y
 calc_moy_Y = int(st.mean(consoY) + 1)
 
@@ -72,18 +73,22 @@ stock_Y = c_int (65)
 moy_Y = c_int(calc_moy_Y)
 ##Point de commande
 seuil_Y = c_int(90)
+seuil_max_Y = c_int(130)
 nombre_de_commande_Y = c_int(0)
 taille_commande_Y =  c_int(0)
 temps_livraison_Y = c_int(2)
+cycle_Y = c_int(4)
 ##Délai avant la prochaine livraison
 delais_Y = c_int(0)
 prix_stockage_Y = c_float(0.25) # = 0,2 * prix_Y / 12
 cout_stock_Y = c_float(0)
+cout_rupture_Y = c_float(0)
 cout_total_Y = c_float(0)   
 
 ## Valeur de stock max, les deux produits comptent :
 stock_max = c_int(150)
 
+# ------------------------------------------------- Gestion à point de commande X ---------------------------------------------------------
 
 commandes_X=[]
 reception_X=[]
@@ -92,26 +97,24 @@ niveau_stock_X = []
 stock_moy_X=[]
 
 ##Fonction permettant de simuler l'évolution sur un an 
+compteur_mois = c_int(0)
 for i in range (0,11+1) :
     vente_X=consoX[i]
     #print(vente_X)
     sorties_X.append(' ')
     sorties_X.append(vente_X)
-
     if delais_X.value==0 : reception_X.append(taille_commande_X.value)
     else : reception_X.append(0)
     reception_X.append(' ')
     functions.reception(pointer(delais_X),pointer(stock_X),pointer(taille_commande_X))
     niveau_stock_X.append(stock_X.value)
     
-
-    functions.passage_commande(pointer(stock_X),pointer(stock_Y),stock_max, pointer(delais_X), pointer(delais_Y), pointer(taille_commande_X), pointer(nombre_de_commande_X), temps_livraison_X ,temps_livraison_Y ,moy_X, seuil_X, pointer(cout_total_X), prix_X, prix_commande)
+    functions.passage_commande_PC(pointer(stock_X),pointer(stock_Y),stock_max, pointer(delais_X), pointer(delais_Y), pointer(taille_commande_X), pointer(nombre_de_commande_X), temps_livraison_X ,temps_livraison_Y ,moy_X, seuil_X, pointer(cout_total_X), prix_X, prix_commande)
     commandes_X.append(taille_commande_X.value)
     commandes_X.append(' ')
 
-    functions.passage_de_mois(pointer(stock_X), pointer(stock_Y), seuil_X, seuil_Y, pointer(delais_X), pointer(delais_Y))
-
-    functions.vente_et_prix_stockage(vente_X, pointer(stock_X), pointer(cout_stock_X), prix_X, prix_stockage_X, pointer(cout_total_X))
+    functions.passage_de_mois(pointer(stock_X), pointer(stock_Y), seuil_X, seuil_Y, pointer(compteur_mois), pointer(delais_X), pointer(delais_Y))
+    functions.vente_et_prix_stockage(vente_X, pointer(stock_X), pointer(cout_stock_X), prix_X, prix_stockage_X,pointer(cout_rupture_X), pointer(cout_total_X))
     niveau_stock_X.append(stock_X.value)
     #print("Cout total Py : ", cout_total_X.value)
 
@@ -120,10 +123,11 @@ functions.reception(pointer(delais_X),pointer(stock_X),pointer(taille_commande_X
 
 
 
-print("voici la valeur de stock final de X :\n", stock_X.value)
-print("voici la valeur du cout de stockage de X:\n", cout_stock_X.value)
-cout_total_X.value += cout_stock_X.value
-print("voici le cout total pour X: \n", cout_total_X.value)
+print("voici la valeur de stock final de X en point de commande :\n", stock_X.value)
+print("voici la valeur du cout de stockage de X en point de commande:\n", cout_stock_X.value)
+print("voici la valeur du cout de rupture :\n", cout_rupture_X.value)
+cout_total_X.value += cout_stock_X.value + cout_rupture_X.value
+print("voici le cout total pour X en point de commande : \n", cout_total_X.value)
 
 for i in range (int(len(niveau_stock_X)/2)) :
     stock_moy_X.append(' ')
@@ -136,10 +140,8 @@ print(sorties_X)
 print(niveau_stock_X)
 print(stock_moy_X)'''
 
-#functions.calcul(pointer(stock_X), seuil_X, pointer(nombre_de_commande_X), pointer(taille_commande_X), temps_livraison_X, prix_X, prix_commande, prix_stockage_X,pointer(cout_stock_X), pointer(cout_total_X))
 
-
-#--------------------------------------------Article Y-------------------------------------------------------------
+#-------------------------------------------- Gestion à point de commande Y -------------------------------------------------------------
 
 commandes_Y=[]
 reception_Y=[]
@@ -148,6 +150,7 @@ niveau_stock_Y = []
 stock_moy_Y=[]
 
 ##Fonction permettant de simuler l'évolution sur un an 
+compteur_mois = c_int(0)
 for i in range (0,11+1) :
     vente_Y=consoY[i]
     #print(vente_Y)
@@ -161,13 +164,13 @@ for i in range (0,11+1) :
     niveau_stock_Y.append(stock_Y.value)
     
 
-    functions.passage_commande(pointer(stock_Y),pointer(stock_X),stock_max, pointer(delais_Y), pointer(delais_X), pointer(taille_commande_Y), pointer(nombre_de_commande_Y), temps_livraison_Y,temps_livraison_X, moy_Y, seuil_Y, pointer(cout_total_Y), prix_Y, prix_commande)
+    functions.passage_commande_PC(pointer(stock_Y),pointer(stock_X),stock_max, pointer(delais_Y), pointer(delais_X), pointer(taille_commande_Y), pointer(nombre_de_commande_Y), temps_livraison_Y,temps_livraison_X, moy_Y, seuil_Y, pointer(cout_total_Y), prix_Y, prix_commande)
     commandes_Y.append(taille_commande_Y.value)
     commandes_Y.append(' ')
 
-    functions.passage_de_mois(pointer(stock_Y), pointer(stock_X), seuil_Y, seuil_X, pointer(delais_Y), pointer(delais_X))
+    functions.passage_de_mois(pointer(stock_Y), pointer(stock_X), seuil_Y, seuil_X,pointer(compteur_mois), pointer(delais_Y), pointer(delais_X))
     
-    functions.vente_et_prix_stockage(vente_Y, pointer(stock_Y), pointer(cout_stock_Y), prix_Y, prix_stockage_Y, pointer(cout_total_Y))
+    functions.vente_et_prix_stockage(vente_Y, pointer(stock_Y), pointer(cout_stock_Y), prix_Y, prix_stockage_Y,pointer(cout_rupture_Y), pointer(cout_total_Y))
     niveau_stock_Y.append(stock_Y.value)
     #print("Cout total Py : ", cout_total_Y.value)
 
@@ -176,19 +179,149 @@ functions.reception(pointer(delais_Y),pointer(stock_Y),pointer(taille_commande_Y
 
 
 
-print("voici la valeur de stock final de Y :\n", stock_Y.value)
-print("voici la valeur du cout de stockage de Y:\n", cout_stock_Y.value)
-cout_total_Y.value += cout_stock_Y.value
-print("voici le cout total pour Y: \n", cout_total_Y.value)
+print("voici la valeur de stock final de Y en point de commande :\n", stock_Y.value)
+print("voici la valeur du cout de stockage de Y en point de commande :\n", cout_stock_Y.value)
+print("voici la valeur du cout de rupture :\n", cout_rupture_Y.value)
+cout_total_Y.value += cout_stock_Y.value + cout_rupture_Y.value
+print("voici le cout total pour Y en point de commande: \n", cout_total_Y.value)
 
 for i in range (int(len(niveau_stock_Y)/2)) :
     stock_moy_Y.append(' ')
     stock_moy_Y.append((niveau_stock_Y[i]+niveau_stock_Y[i+1])/2)
 
 
+# ------------------------------------------------------ Gestion Périodique X ---------------------------------------------------------------
+
+##Fonction permettant de simuler l'évolution sur un an 
+print("\n\n")
+commandes_X_total = c_int(0)
+stock_X.value = 5
+stock_Y.value = 65
+compteur_mois.value = 0
+nombre_de_commande_X.value = 0
+cout_stock_X.value = 0
+cout_rupture_X.value = 0
+cout_total_X.value = 0
+for i in range (0,11+1) :
+    vente_X=consoX[i]
+    #print(vente_X)
+    # sorties_X.append(' ')
+    # sorties_X.append(vente_X)
+
+    # if delais_X.value==0 : reception_X.append(taille_commande_X.value)
+    # else : reception_X.append(0)
+    # reception_X.append(' ')
+    functions.reception(pointer(delais_X),pointer(stock_X),pointer(taille_commande_X))
+    # niveau_stock_X.append(stock_X2.value)
+    
+    functions.passage_commande_P(pointer(stock_X),pointer(stock_Y),stock_max,compteur_mois, cycle_X, pointer(delais_X), pointer(delais_Y), pointer(taille_commande_X), pointer(nombre_de_commande_X), temps_livraison_X ,temps_livraison_Y , seuil_max_X, pointer(cout_total_X), prix_X, prix_commande)
+    # commandes_X.append(taille_commande_X.value)
+    # commandes_X.append(' ')
+    commandes_X_total.value += taille_commande_X.value  
+    functions.passage_de_mois(pointer(stock_X), pointer(stock_Y), seuil_X, seuil_Y,pointer(compteur_mois), pointer(delais_X), pointer(delais_Y))
+     
+   
+    functions.vente_et_prix_stockage(vente_X, pointer(stock_X), pointer(cout_stock_X), prix_X, prix_stockage_X,pointer(cout_rupture_X), pointer(cout_total_X))
+    # niveau_stock_X.append(stock_X2.value)
+    #print("Cout total Py : ", cout_total_X.value)
+
+
+functions.reception(pointer(delais_X),pointer(stock_X),pointer(taille_commande_X))
+
+
+
+print("voici la valeur de stock final de X en Périodique :\n", stock_X.value)
+print("voici la valeur du cout de stockage de X en Périodique :\n", cout_stock_X.value)
+print("voici le nombre de commande : \n", nombre_de_commande_X.value)
+print("voici le nombre de produit commandé  : \n", commandes_X_total.value)
+print("voici la valeur du cout de rupture :\n", cout_rupture_X.value)
+cout_total_X.value += cout_stock_X.value +cout_rupture_X.value
+print("voici le cout total pour X en Périodique : \n", cout_total_X.value)
+
+# for i in range (int(len(niveau_stock_X)/2)) :
+#     stock_moy_X.append(' ')
+#     stock_moy_X.append((niveau_stock_X[i]+niveau_stock_X[i+1])/2)
+    
+
+'''print(commandes_X)
+print(reception_X)
+print(sorties_X)
+print(niveau_stock_X)
+print(stock_moy_X)'''
+
+
+
+# ------------------------------------------------------------------ Gestion Périodique Y -----------------------------------------------------------------------
+
+
+##Fonction permettant de simuler l'évolution sur un an 
+print("\n")
+commandes_Y_total = c_int(0)
+stock_X.value = 5
+stock_Y.value = 65
+compteur_mois.value = 0
+nombre_de_commande_Y.value = 0
+cout_stock_Y.value = 0
+cout_rupture_Y.value = 0
+cout_total_Y.value = 0
+for i in range (0,11+1) :
+    vente_Y=consoX[i]
+    #print(vente_X)
+    # sorties_X.append(' ')
+    # sorties_X.append(vente_X)
+
+    # if delais_X.value==0 : reception_X.append(taille_commande_X.value)
+    # else : reception_X.append(0)
+    # reception_X.append(' ')
+    functions.reception(pointer(delais_Y),pointer(stock_Y),pointer(taille_commande_Y))
+    # niveau_stock_X.append(stock_X2.value)
+    
+    functions.passage_commande_P(pointer(stock_Y),pointer(stock_X),stock_max,compteur_mois, cycle_Y , pointer(delais_Y), pointer(delais_X), pointer(taille_commande_Y), pointer(nombre_de_commande_Y), temps_livraison_Y ,temps_livraison_X , seuil_max_Y, pointer(cout_total_Y), prix_Y, prix_commande)
+    # commandes_X.append(taille_commande_X.value)
+    # commandes_X.append(' ')
+    if delais_Y.value == temps_livraison_Y.value :
+        # print("taille commande :", taille_commande_Y.value)
+        commandes_Y_total.value += taille_commande_Y.value 
+    
+    functions.passage_de_mois(pointer(stock_Y), pointer(stock_X), seuil_Y, seuil_X,pointer(compteur_mois), pointer(delais_Y), pointer(delais_X))
+    # print("delais : ", delais_Y.value)
+    # print("print temps livraison : ", temps_livraison_Y.value)
+     
+   
+    functions.vente_et_prix_stockage(vente_Y, pointer(stock_Y), pointer(cout_stock_Y), prix_Y, prix_stockage_Y, pointer(cout_rupture_Y), pointer(cout_total_Y))
+    # niveau_stock_X.append(stock_X2.value)
+    #print("Cout total Py : ", cout_total_X.value)
+
+
+functions.reception(pointer(delais_Y),pointer(stock_Y),pointer(taille_commande_Y))
+
+
+
+print("voici la valeur de stock final de Y en Périodique :\n", stock_Y.value)
+print("voici la valeur du cout de stockage de Y en Périodique :\n", cout_stock_Y.value)
+print("voici le nombre de commande : \n", nombre_de_commande_Y.value)
+print("voici le nombre de produit commandé  : \n", commandes_Y_total.value)
+print("voici la valeur du cout de rupture :\n", cout_rupture_Y.value)
+cout_total_Y.value += cout_stock_Y.value + cout_rupture_Y.value
+print("voici le cout total pour Y en Périodique : \n", cout_total_Y.value)
+
+# for i in range (int(len(niveau_stock_X)/2)) :
+#     stock_moy_X.append(' ')
+#     stock_moy_X.append((niveau_stock_X[i]+niveau_stock_X[i+1])/2)
+    
+
+'''print(commandes_X)
+print(reception_X)
+print(sorties_X)
+print(niveau_stock_X)
+print(stock_moy_X)'''
+
+
+
+
+# ------------------------------------------------------------------ Interface Graphique ------------------------------------------------------------------------
 ##\cond
 
-#Interface Graphique
 
 liste_mois = ["Début Janvier", "Fin Janvier", "Début Février", "Fin Février", "Début Mars", "Fin Mars", "Début Avril", "Fin Avril", "Début Mai", "Fin Mai", "Début Juin", "Fin Juin", "Début Juillet", "Fin Juillet", "Début Août", "Fin Août", "Début Septembre", "Fin Septembre", "Début Octobre", "Fin Octobre", "Début Novembre", "Fin Novembre", "Début Décembre", "Fin Décembre"]
 noms_colonnes = ["Mois", "Commande", "Réception", "Sorties", "Niveau Stock", "Stock Moyen"]
