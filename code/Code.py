@@ -4,6 +4,11 @@ import statistics as st
 import matplotlib.pyplot as plt
 from tkinter import * 
 
+##
+# @file Code.py
+# @brief Fichier contenant le code python permettant de simuler l'évolution du stock sur un an
+# @author Corentin CHARTIER & Maël JAVER KALA
+
 functions = CDLL("./functions.dll")
 ##Fonction qui lit le tableau des ventes depuis un csv
 def lecture(tabX,tabY): 
@@ -51,12 +56,7 @@ prix_stockage_X = c_float(0.75) # = 0,2 * prix_X / 12
 cout_stock_X = c_float(0)
 cout_total_X = c_float(0)   
 #print(cout_total_X.value)
-i=0
-
-
-
-# Pour pouvoir utiliser les nouvelles fonctions en c qui prennent en compte le stock total et évite de payer deux fois le prix de commande
-# quand deux commande sont passé le même mois il faut déclarer X et Y avant d'utiliser les fonctions
+# Pour utiliser les fonctions qui permettent de prendre en compte le stock total et d'éviter de payer deux fois le prix de commande lorsque deux commandes sont passé le même mois il faut déclarer les valeurs liées à X ET Y avant d'utiliser les fonctions
 
 ##Calcule les ventes moyennes sur l'année de Y
 calc_moy_Y = int(st.mean(consoY) + 1)
@@ -81,10 +81,8 @@ prix_stockage_Y = c_float(0.25) # = 0,2 * prix_Y / 12
 cout_stock_Y = c_float(0)
 cout_total_Y = c_float(0)   
 
-# je rajoute la veleur de stock max :
+## Valeur de stock max, les deux produits comptent :
 stock_max = c_int(150)
-
-
 
 
 commandes_X=[]
@@ -143,32 +141,6 @@ print(stock_moy_X)'''
 
 #--------------------------------------------Article Y-------------------------------------------------------------
 
-# ##Calcule les ventes moyennes sur l'année de Y
-# calc_moy_Y = int(st.mean(consoY) + 1)
-
-
-# ##Nombre de ventes de Y
-# vente_Y = c_int(0)
-# ##Prix unitaire de Y
-# prix_Y = c_float(15)
-# ##Nombre de produits en stock
-# stock_Y = c_int (65)
-# ##Valeur en format C de la moyenne des ventes
-# moy_Y = c_int(calc_moy_Y)
-# ##Point de commande
-# seuil_Y = c_int(90)
-# nombre_de_commande_Y = c_int(0)
-# taille_commande_Y =  c_int(0)
-# temps_livraison_Y = c_int(2)
-# ##Délai avant la prochaine livraison
-# delais_Y = c_int(0)
-# prix_stockage_Y = c_float(0.25) # = 0,2 * prix_Y / 12
-# cout_stock_Y = c_float(0)
-# cout_total_Y = c_float(0)   
-#print(cout_total_Y.value)
-i=0
-
-
 commandes_Y=[]
 reception_Y=[]
 sorties_Y=[]
@@ -212,10 +184,9 @@ print("voici le cout total pour Y: \n", cout_total_Y.value)
 for i in range (int(len(niveau_stock_Y)/2)) :
     stock_moy_Y.append(' ')
     stock_moy_Y.append((niveau_stock_Y[i]+niveau_stock_Y[i+1])/2)
-    
 
 
-
+##\cond
 
 #Interface Graphique
 
@@ -223,11 +194,12 @@ liste_mois = ["Début Janvier", "Fin Janvier", "Début Février", "Fin Février"
 noms_colonnes = ["Mois", "Commande", "Réception", "Sorties", "Niveau Stock", "Stock Moyen"]
 
 fenetre=Tk()
+#Tableau pour X
 
-##Création des colonnes
+#Création des colonnes
 for i in range(6):
     Button(fenetre, text=noms_colonnes[i], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=0, column=i)
-##Remplissage du tableau ligne par ligne
+#Remplissage du tableau ligne par ligne
 for ligne in range(24):
     Button(fenetre, text=liste_mois[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=0)
     Button(fenetre, text=commandes_X[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=1)
@@ -239,10 +211,12 @@ for ligne in range(24):
 for ligne in range(24):
     Button(fenetre, text=' ', borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=6)
 
-##Création des colonnes
+#Tableau pour Y
+
+#Création des colonnes
 for i in range(7,13):
     Button(fenetre, text=noms_colonnes[i-7], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=0, column=i)
-##Remplissage du tableau ligne par ligne
+#Remplissage du tableau ligne par ligne
 for ligne in range(24):
     Button(fenetre, text=liste_mois[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=7)
     Button(fenetre, text=commandes_Y[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=8)
@@ -251,7 +225,7 @@ for ligne in range(24):
     Button(fenetre, text=niveau_stock_Y[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=11)
     Button(fenetre, text=stock_moy_Y[ligne], borderwidth=1,width=15,state=DISABLED,disabledforeground='black').grid(row=ligne+1, column=12)
 
-##Affiche le tableau sans bloquer le programme, ce qui permet d'afficher le graphique en même temps
+##Affiche le tableau de gestion des stocks sans bloquer le programme, ce qui permet d'afficher le graphique en même temps
 async def affichage():
     fenetre.mainloop()
 affichage()
@@ -260,3 +234,5 @@ plt.plot(niveau_stock_X, label="Stock de X",marker='o',markersize=3)
 plt.plot(niveau_stock_Y, label="Stock de Y", marker='o',markersize=3)
 plt.legend()
 plt.show()
+
+##\endcond
