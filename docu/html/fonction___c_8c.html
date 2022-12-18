@@ -106,28 +106,134 @@ Functions</h2></td></tr>
 <tr class="memitem:ac14dbd5eb482f6d7587f07a62dfb85b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#ac14dbd5eb482f6d7587f07a62dfb85b4">reception</a> (int *delais_principal, int *stock_Principal, int *commande)</td></tr>
 <tr class="memdesc:ac14dbd5eb482f6d7587f07a62dfb85b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui vérifie si une commande est arrivée et ajuste les stock en conséquence.  <a href="fonction___c_8c.html#ac14dbd5eb482f6d7587f07a62dfb85b4">More...</a><br /></td></tr>
 <tr class="separator:ac14dbd5eb482f6d7587f07a62dfb85b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefafd25444c2fc0cef9dfeafa544e8b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#aefafd25444c2fc0cef9dfeafa544e8b6">passage_commande</a> (int *stock_principal, int *stock_annexe, int stock_max, int *delais_P, int *delais_A, int *commande, int *nombre_commande, int temp_commande_P, int temp_commande_A, int Vmoyenne, int seuil, float *cout_total, float prix, float prix_commande)</td></tr>
-<tr class="memdesc:aefafd25444c2fc0cef9dfeafa544e8b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui vérifie les stocks, passe une commande si besoin et actualise le delais de livraison.  <a href="fonction___c_8c.html#aefafd25444c2fc0cef9dfeafa544e8b6">More...</a><br /></td></tr>
-<tr class="separator:aefafd25444c2fc0cef9dfeafa544e8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c2d4a22e624e85b1b8c1c93b1340820"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#a2c2d4a22e624e85b1b8c1c93b1340820">passage_de_mois</a> (int *stock_principal, int *stock_annexe, int seuil_P, int seuil_A, int *delais_P, int *delais_A)</td></tr>
-<tr class="memdesc:a2c2d4a22e624e85b1b8c1c93b1340820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction permettant de passer au mois suivant.  <a href="fonction___c_8c.html#a2c2d4a22e624e85b1b8c1c93b1340820">More...</a><br /></td></tr>
-<tr class="separator:a2c2d4a22e624e85b1b8c1c93b1340820"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adef17c4593973f5aab4d3688de015b07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#adef17c4593973f5aab4d3688de015b07">vente_et_prix_stockage</a> (int vente, int *stock_X, float *cout_stock, float prix, float prix_stockage, float *cout_total)</td></tr>
-<tr class="memdesc:adef17c4593973f5aab4d3688de015b07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui diminue le stock du montant de la vente, vérifie si il y a rupture de stock et calcule le prix de stockage des produits restants.  <a href="fonction___c_8c.html#adef17c4593973f5aab4d3688de015b07">More...</a><br /></td></tr>
-<tr class="separator:adef17c4593973f5aab4d3688de015b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe72eea964d6b9f70b8737f157e3b92b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#abe72eea964d6b9f70b8737f157e3b92b">passage_de_mois</a> (int *stock_principal, int *stock_annexe, int seuil_P, int seuil_A, int *compteur_mois, int *delais_P, int *delais_A)</td></tr>
+<tr class="separator:abe72eea964d6b9f70b8737f157e3b92b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b92071b3dcd701dadc0834cc2962c50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#a9b92071b3dcd701dadc0834cc2962c50">vente_et_prix_stockage</a> (int vente, int *stock_P, float *cout_stock, float prix, float prix_stockage, float *cout_rupture, float *cout_total)</td></tr>
+<tr class="memdesc:a9b92071b3dcd701dadc0834cc2962c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui diminue le stock du montant de la vente, vérifie si il y a rupture de stock et calcule le prix de stockage des produits restants.  <a href="fonction___c_8c.html#a9b92071b3dcd701dadc0834cc2962c50">More...</a><br /></td></tr>
+<tr class="separator:a9b92071b3dcd701dadc0834cc2962c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf76620ea3fbd171d29bbf1e7a32b471"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#abf76620ea3fbd171d29bbf1e7a32b471">passage_commande_PC</a> (int *stock_principal, int *stock_annexe, int stock_max, int *delais_P, int *delais_A, int *commande, int *nombre_commande, int temp_commande_P, int temp_commande_A, int Vmoyenne, int seuil, float *cout_total, float prix, float prix_commande)</td></tr>
+<tr class="separator:abf76620ea3fbd171d29bbf1e7a32b471"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c0deb42954b123821a95735d8fa73fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#a1c0deb42954b123821a95735d8fa73fe">passage_commande_P</a> (int *stock_principal, int *stock_annexe, int stock_max, int compteur_mois, int cycle, int *delais_P, int *delais_A, int *commande, int *nombre_commande, int temp_commande_P, int temp_commande_A, int seuil_max, float *cout_total, float prix, float prix_commande)</td></tr>
+<tr class="separator:a1c0deb42954b123821a95735d8fa73fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Pour compiler en DLL : gcc -s -shared -O2 -o functions.dll -fPIC <a class="el" href="fonction___c_8c.html" title="Pour compiler en DLL : gcc -s -shared -O2 -o functions.dll -fPIC fonction_C.c.">fonction_C.c</a>. </p>
 <dl class="section author"><dt>Author</dt><dd>Corentin CHARTIER &amp; Maël JAVER KALA </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="aefafd25444c2fc0cef9dfeafa544e8b6" name="aefafd25444c2fc0cef9dfeafa544e8b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefafd25444c2fc0cef9dfeafa544e8b6">&#9670;&#160;</a></span>passage_commande()</h2>
+<a id="a1c0deb42954b123821a95735d8fa73fe" name="a1c0deb42954b123821a95735d8fa73fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c0deb42954b123821a95735d8fa73fe">&#9670;&#160;</a></span>passage_commande_P()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void passage_commande </td>
+          <td class="memname">void passage_commande_P </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>stock_principal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>stock_annexe</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>stock_max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>compteur_mois</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>cycle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>delais_P</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>delais_A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>commande</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>nombre_commande</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>temp_commande_P</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>temp_commande_A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>seuil_max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>cout_total</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>prix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>prix_commande</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf76620ea3fbd171d29bbf1e7a32b471" name="abf76620ea3fbd171d29bbf1e7a32b471"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf76620ea3fbd171d29bbf1e7a32b471">&#9670;&#160;</a></span>passage_commande_PC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void passage_commande_PC </td>
           <td>(</td>
           <td class="paramtype">int *&#160;</td>
           <td class="paramname"><em>stock_principal</em>, </td>
@@ -218,18 +324,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fonction qui vérifie les stocks, passe une commande si besoin et actualise le delais de livraison. </p>
-<ul>
-<li>Vérifie si les stock sont en dessous du seuil et qu'aucune commande n'est déjà en cours. si ces conditions sont vérifié alors on passe une nouvelle commande</li>
-<li>Passe commande du nombre de produit déterminé par calcul pour limiter les stock et éviter les ruptures</li>
-<li>Incrémente les coûts totaux du prix de la commande</li>
-<li>Incrémente le delais de livraison du temps de livraison determiné par le produit concerné</li>
-</ul>
-
 </div>
 </div>
-<a id="a2c2d4a22e624e85b1b8c1c93b1340820" name="a2c2d4a22e624e85b1b8c1c93b1340820"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c2d4a22e624e85b1b8c1c93b1340820">&#9670;&#160;</a></span>passage_de_mois()</h2>
+<a id="abe72eea964d6b9f70b8737f157e3b92b" name="abe72eea964d6b9f70b8737f157e3b92b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe72eea964d6b9f70b8737f157e3b92b">&#9670;&#160;</a></span>passage_de_mois()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -262,6 +360,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>compteur_mois</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
           <td class="paramname"><em>delais_P</em>, </td>
         </tr>
         <tr>
@@ -277,10 +381,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Fonction permettant de passer au mois suivant. </p>
 <ul>
-<li>Vérifie si une commande est en cours pour le produit traité</li>
 <li>Vérifie si une commande est en cours pour l'autre produit</li>
 <li>Diminue les délais de livraison, simulant le passage d'un mois</li>
 </ul>
@@ -328,8 +429,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adef17c4593973f5aab4d3688de015b07" name="adef17c4593973f5aab4d3688de015b07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adef17c4593973f5aab4d3688de015b07">&#9670;&#160;</a></span>vente_et_prix_stockage()</h2>
+<a id="a9b92071b3dcd701dadc0834cc2962c50" name="a9b92071b3dcd701dadc0834cc2962c50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b92071b3dcd701dadc0834cc2962c50">&#9670;&#160;</a></span>vente_et_prix_stockage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -344,7 +445,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>stock_X</em>, </td>
+          <td class="paramname"><em>stock_P</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -363,6 +464,12 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>prix_stockage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>cout_rupture</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

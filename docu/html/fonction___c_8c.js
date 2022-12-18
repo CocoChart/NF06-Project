@@ -1,7 +1,8 @@
 var fonction___c_8c =
 [
-    [ "passage_commande", "fonction___c_8c.html#aefafd25444c2fc0cef9dfeafa544e8b6", null ],
-    [ "passage_de_mois", "fonction___c_8c.html#a2c2d4a22e624e85b1b8c1c93b1340820", null ],
+    [ "passage_commande_P", "fonction___c_8c.html#a1c0deb42954b123821a95735d8fa73fe", null ],
+    [ "passage_commande_PC", "fonction___c_8c.html#abf76620ea3fbd171d29bbf1e7a32b471", null ],
+    [ "passage_de_mois", "fonction___c_8c.html#abe72eea964d6b9f70b8737f157e3b92b", null ],
     [ "reception", "fonction___c_8c.html#ac14dbd5eb482f6d7587f07a62dfb85b4", null ],
-    [ "vente_et_prix_stockage", "fonction___c_8c.html#adef17c4593973f5aab4d3688de015b07", null ]
+    [ "vente_et_prix_stockage", "fonction___c_8c.html#a9b92071b3dcd701dadc0834cc2962c50", null ]
 ];
