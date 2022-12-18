@@ -6,62 +6,79 @@
  * \brief Pour compiler en DLL : gcc  -s -shared -O2 -o functions.dll -fPIC fonction_C.c
  * \author Corentin CHARTIER & Maël JAVER KALA
  */
-void reception(int *delais_principal, int *stock_Principal, int *commande) /// Fonction qui vérifie si une commande est arrivée et ajuste les stock en conséquence
+
+/*! 
+Fonction qui vérifie si une commande est arrivée en vérifiant si le délai de l'objet est nul (signifiant que ce dernier est bien arrivé),
+ensuite la fonction incrémente le stock en conséquence et met la valeur de la commande à zéro.
+*/
+void reception(int *delais_principal, int *stock_Principal, int *commande) 
 {
-    // printf("\nReception\n");
-    if (*delais_principal == 0) ///- Vérifie si le délais de livraison est nul, cette condition est vérifier quand une commande viens d'arriver ou quand il n'y a pas de commande en cour
+    
+    if (*delais_principal == 0) 
     {
-        *stock_Principal += *commande; ///- Incrémente le stock de la valeur de la commande
-        *commande = 0;                 ///- Remet la valeur du stock à 0 pour éviter d'augmenter plusieurs fois le stock avec la même commande
+        *stock_Principal += *commande; 
+        *commande = 0;                 
     }
-    // printf("Stock C :%d\n", *stock_Principal);
+
 }
 
-void passage_de_mois(int *stock_principal, int *stock_annexe, int seuil_P, int seuil_A, int *compteur_mois, int *delais_P, int *delais_A)
+/*!
+Fonction qui simule le passage d'un mois en diminuant le délai de livraisons des deux produits et incrémente le compteur de mois
+*/
+void passage_de_mois( int *compteur_mois, int *delais_P, int *delais_A)
 {
-    // printf("delais %d\n", *delais_P);
-    // if (*stock_principal <= seuil_P) ///- Vérifie si une commande est en cours pour le produit traité
-
+    
     *delais_P -= 1;
-    // Diminue le délais de livraison, simulant le passage d'un mois
-
-    ///- Vérifie si une commande est en cours pour l'autre produit
-
-    *delais_A -= 1; ///- Diminue les délais de livraison, simulant le passage d'un mois
-
+    *delais_A -= 1; 
     *compteur_mois += 1;
-    // printf("\ncompteur mois : %d\n", *compteur_mois);
+    
 }
 
+/*!
+ui diminue le stock du montant de la vente, représentant les ventes qui ont eu lieu durant le mois. Ensuite, la fonction
+vérifie si le nouveau stock est négatif, si c'est le cas alors il y a rupture de stock et le programme calcule le cout de rupture avant
+de passer la valeur de stock à zéro (car il ne peut pas y avoir de stock négatif).
+Enfin, la fonction calcule le cout de stockage mensuel des produits restants 
+*/
 void vente_et_prix_stockage(int vente, int *stock_P, float *cout_stock, float prix, float prix_stockage, float *cout_rupture, float *cout_total)
-/// Fonction qui diminue le stock du montant de la vente, vérifie si il y a rupture de stock et calcule le prix de stockage des produits restants
 {
-    // printf("vente et prix stockage\n");
-    *stock_P -= vente; //- Diminue les stock
-    // printf("Stock apres vente :%d\n", *stock_P);
-    if (*stock_P < 0) //- */érifie si il y a une rupture de stock
+
+    *stock_P -= vente; 
+    if (*stock_P < 0) 
     {
         printf("      Cout de RUPTURE  : %.2f\n", prix * 0.1 * abs(*stock_P));
-        *cout_rupture += prix * 0.1 * abs(*stock_P); ///- Incrémente le coût total du coût de rupture
-        *stock_P = 0;                                ///- Remet le stock à 0 car on ne peut pas avoir de stock négatif
+        *cout_rupture += prix * 0.1 * abs(*stock_P); 
+        *stock_P = 0;                                
         printf("      RUPTURE DE STOCK\n");
     }
-    *cout_stock += (*stock_P) * (prix_stockage); ///- Calcule le cout de stockage des produit restant dans l'entrepot
+    *cout_stock += (*stock_P) * (prix_stockage); 
+
 }
 
 //----------------------------------------------------------------------- Gestion à point de commande -----------------------------------------------------------------------------------
 
+/*!
+Cette fonction permet de passer des commandes en utilisant la méthode de la gestion à point de commande.
+Pour cela, on vérifie, dans un premier temps, si le stock du produit principal est inférieur au stock de sécurité et qu'il n'y a pas de commande déjà en cour.
+Si cette condition est vérifiée alors on passe une commande dont la taille correspond aux ventes moyenne de l'année multipliée
+par le temps de livraison auquel on rajoute deux mois de sécurité. 
+Dans un second temps, après avoir incrémenté le nombre de commandes passé on vérifie si la somme des stocks, après commande, des deux produits sont supérieure
+au stock max que peut accueillir l'entrepôt. Si cette valeur excède le stockage max alors on diminue la commande pour ne pas dépasser cette limite. 
+Dans un troisième temps, on va venir calculer le prix de la commande en vérifiant en amont si une commande n'a pas déjà été passée ce mois-ci avec le second produit
+dans le but de ne pas payer deux fois le prix de passage de commande. 
+Enfin on remet le délai à la valeur du temps de livraison. 
+*/
 void passage_commande_PC(int *stock_principal, int *stock_annexe, int stock_max, int *delais_P, int *delais_A, int *commande, int *nombre_commande, int temp_commande_P, int temp_commande_A, int Vmoyenne, int seuil, float *cout_total, float prix, float prix_commande)
-{ // Fonction qui vérifie les stocks, passe une commande si besoin et actualise le delais de livraison
-    // printf("passage de commande et compteur mois\n");
-    if (*stock_principal <= seuil && *commande == 0) // vérifie si les stock sont en dessous du seuil et qu'aucune commande n'est déjà en cours. si ces conditions sont vérifié alors on passe une nouvlle commande
+{ 
+    
+    if (*stock_principal <= seuil && *commande == 0) 
     {
-        *commande = (Vmoyenne * (temp_commande_P + 2)) + (seuil - *stock_principal); // passe commande du nombre de produit déterminé par calcul pour limiter les stock et éviter les ruptures
+        *commande = (Vmoyenne * (temp_commande_P + 2)) + (seuil - *stock_principal); 
         *nombre_commande += 1;
         if (*stock_principal + *commande + *stock_annexe > stock_max)
         {
             int surplut;
-            surplut = (*stock_principal + *commande + *stock_annexe) - stock_max;
+            surplut = (*stock_principal + *commande + *stock_annexe) - stock_max; /// on calcul le nombre de produit sur numéraire avant de les soustraire de la commande
             *commande -= surplut;
         }
         if (*delais_A == temp_commande_A)
@@ -71,25 +88,29 @@ void passage_commande_PC(int *stock_principal, int *stock_annexe, int stock_max,
         else
         {
 
-            *cout_total += (*commande * prix) + prix_commande; // incrémente les cout totaux du prix de la commande
+            *cout_total += (*commande * prix) + prix_commande; 
         }
-        *delais_P = temp_commande_P; // incrémente le delais de livraison du temp de livraison determiné par le produit concerné
+        *delais_P = temp_commande_P; 
     }
 }
 // ---------------------------------------------------------------- Gestion Périodique --------------------------------------------------------------------------------
 
+
+/*!
+Cette fonction permet de passer des commandes en utilisant la méthode de la gestion périodique.
+Dans un premier temps, on va venir vérifier si le mois en cour est un multiple du cycle d'actualisation des stocks. Si cette condition 
+est vérifiée, on passe commande de telle sorte à atteindre de nouveau le seuil max et incrémente le nombre de commandes. 
+Ensuite, on réduit la commande si nécessaire pour ne pas dépasser le stock max et on calcule le cout de cette dernière en vérifiant si une commande 
+n'a pas déjà été passée. 
+Enfin, on remet le délai à la valeur du temps de livraison. 
+*/
 void passage_commande_P(int *stock_principal, int *stock_annexe, int stock_max, int compteur_mois, int cycle, int *delais_P, int *delais_A, int *commande, int *nombre_commande, int temp_commande_P, int temp_commande_A, int seuil_max, float *cout_total, float prix, float prix_commande)
 {
-    //  printf("compteur mois  : %d\n", compteur_mois+1);
-    // printf("cycle : %d\n", cycle);
-    // printf("*compteur_mois modulo temp_actualisation == %d\n",(compteur_mois % cycle) );
+    
     if (compteur_mois % cycle == 0 && *stock_principal < seuil_max)
     {
-        // printf("seuil max : %d\n", seuil_max);
-        // printf("stock : %d\n", *stock_principal);
+    
         *commande = seuil_max - *stock_principal;
-        // printf("commande : %d\n", *commande);
-
         *nombre_commande += 1;
         if (*stock_principal + *commande + *stock_annexe > stock_max)
         {
@@ -103,8 +124,9 @@ void passage_commande_P(int *stock_principal, int *stock_annexe, int stock_max, 
         }
         else
         {
-            *cout_total += (*commande * prix) + prix_commande; // incrémente les cout totaux du prix de la commande
+            *cout_total += (*commande * prix) + prix_commande; 
         }
         *delais_P = temp_commande_P;
+
     }
 }
