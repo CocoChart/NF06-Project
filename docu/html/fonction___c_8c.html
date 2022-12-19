@@ -104,12 +104,10 @@ $(document).ready(function(){initNavTree('fonction___c_8c.html',''); initResizab
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac14dbd5eb482f6d7587f07a62dfb85b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#ac14dbd5eb482f6d7587f07a62dfb85b4">reception</a> (int *delais_principal, int *stock_Principal, int *commande)</td></tr>
-<tr class="memdesc:ac14dbd5eb482f6d7587f07a62dfb85b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui vérifie si une commande est arrivée et ajuste les stock en conséquence.  <a href="fonction___c_8c.html#ac14dbd5eb482f6d7587f07a62dfb85b4">More...</a><br /></td></tr>
 <tr class="separator:ac14dbd5eb482f6d7587f07a62dfb85b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe72eea964d6b9f70b8737f157e3b92b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#abe72eea964d6b9f70b8737f157e3b92b">passage_de_mois</a> (int *stock_principal, int *stock_annexe, int seuil_P, int seuil_A, int *compteur_mois, int *delais_P, int *delais_A)</td></tr>
-<tr class="separator:abe72eea964d6b9f70b8737f157e3b92b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dadd475f6351e8928f128eaa07dea3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#a2dadd475f6351e8928f128eaa07dea3f">passage_de_mois</a> (int *compteur_mois, int *delais_P, int *delais_A)</td></tr>
+<tr class="separator:a2dadd475f6351e8928f128eaa07dea3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b92071b3dcd701dadc0834cc2962c50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#a9b92071b3dcd701dadc0834cc2962c50">vente_et_prix_stockage</a> (int vente, int *stock_P, float *cout_stock, float prix, float prix_stockage, float *cout_rupture, float *cout_total)</td></tr>
-<tr class="memdesc:a9b92071b3dcd701dadc0834cc2962c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui diminue le stock du montant de la vente, vérifie si il y a rupture de stock et calcule le prix de stockage des produits restants.  <a href="fonction___c_8c.html#a9b92071b3dcd701dadc0834cc2962c50">More...</a><br /></td></tr>
 <tr class="separator:a9b92071b3dcd701dadc0834cc2962c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf76620ea3fbd171d29bbf1e7a32b471"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fonction___c_8c.html#abf76620ea3fbd171d29bbf1e7a32b471">passage_commande_PC</a> (int *stock_principal, int *stock_annexe, int stock_max, int *delais_P, int *delais_A, int *commande, int *nombre_commande, int temp_commande_P, int temp_commande_A, int Vmoyenne, int seuil, float *cout_total, float prix, float prix_commande)</td></tr>
 <tr class="separator:abf76620ea3fbd171d29bbf1e7a32b471"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -223,6 +221,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p >Cette fonction permet de passer des commandes en utilisant la méthode de la gestion périodique. Dans un premier temps, on va venir vérifier si le mois en cour est un multiple du cycle d'actualisation des stocks. Si cette condition est vérifiée, on passe commande de telle sorte à atteindre de nouveau le seuil max et incrémente le nombre de commandes. Ensuite, on réduit la commande si nécessaire pour ne pas dépasser le stock max et on calcule le cout de cette dernière en vérifiant si une commande n'a pas déjà été passée. Enfin, on remet le délai à la valeur du temps de livraison. </p>
 
 </div>
 </div>
@@ -323,11 +322,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p >Cette fonction permet de passer des commandes en utilisant la méthode de la gestion à point de commande. Pour cela, on vérifie, dans un premier temps, si le stock du produit principal est inférieur au stock de sécurité et qu'il n'y a pas de commande déjà en cour. Si cette condition est vérifiée alors on passe une commande dont la taille correspond aux ventes moyenne de l'année multipliée par le temps de livraison auquel on rajoute deux mois de sécurité. Dans un second temps, après avoir incrémenté le nombre de commandes passé on vérifie si la somme des stocks, après commande, des deux produits sont supérieure au stock max que peut accueillir l'entrepôt. Si cette valeur excède le stockage max alors on diminue la commande pour ne pas dépasser cette limite. Dans un troisième temps, on va venir calculer le prix de la commande en vérifiant en amont si une commande n'a pas déjà été passée ce mois-ci avec le second produit dans le but de ne pas payer deux fois le prix de passage de commande. Enfin on remet le délai à la valeur du temps de livraison. </p>
+<p >on calcul le nombre de produit sur numéraire avant de les soustraire de la commande</p>
 
 </div>
 </div>
-<a id="abe72eea964d6b9f70b8737f157e3b92b" name="abe72eea964d6b9f70b8737f157e3b92b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe72eea964d6b9f70b8737f157e3b92b">&#9670;&#160;</a></span>passage_de_mois()</h2>
+<a id="a2dadd475f6351e8928f128eaa07dea3f" name="a2dadd475f6351e8928f128eaa07dea3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dadd475f6351e8928f128eaa07dea3f">&#9670;&#160;</a></span>passage_de_mois()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -335,30 +336,6 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void passage_de_mois </td>
           <td>(</td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>stock_principal</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>stock_annexe</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>seuil_P</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>seuil_A</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">int *&#160;</td>
           <td class="paramname"><em>compteur_mois</em>, </td>
         </tr>
@@ -381,10 +358,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<ul>
-<li>Vérifie si une commande est en cours pour l'autre produit</li>
-<li>Diminue les délais de livraison, simulant le passage d'un mois</li>
-</ul>
+<p >Fonction qui simule le passage d'un mois en diminuant le délai de livraisons des deux produits et incrémente le compteur de mois </p>
 
 </div>
 </div>
@@ -419,13 +393,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Fonction qui vérifie si une commande est arrivée et ajuste les stock en conséquence. </p>
-<ul>
-<li>Vérifie si le délais de livraison est nul, cette condition est vérifier quand une commande viens d'arriver ou quand il n'y a pas de commande en cour</li>
-<li>Incrémente le stock de la valeur de la commande</li>
-<li>Remet la valeur du stock à 0 pour éviter d'augmenter plusieurs fois le stock avec la même commande</li>
-</ul>
+<p >Fonction qui vérifie si une commande est arrivée en vérifiant si le délai de l'objet est nul (signifiant que ce dernier est bien arrivé), ensuite la fonction incrémente le stock en conséquence et met la valeur de la commande à zéro. </p>
 
 </div>
 </div>
@@ -484,13 +452,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Fonction qui diminue le stock du montant de la vente, vérifie si il y a rupture de stock et calcule le prix de stockage des produits restants. </p>
-<ul>
-<li>Incrémente le coût total du coût de rupture</li>
-<li>Remet le stock à 0 car on ne peut pas avoir de stock négatif</li>
-<li>Calcule le cout de stockage des produit restant dans l'entrepot</li>
-</ul>
+<p >Fonction qui diminue le stock du montant de la vente, représentant les ventes qui ont eu lieu durant le mois. Ensuite, la fonction vérifie si le nouveau stock est négatif, si c'est le cas alors il y a rupture de stock et le programme calcule le cout de rupture avant de passer la valeur de stock à zéro (car il ne peut pas y avoir de stock négatif). Enfin, la fonction calcule le cout de stockage mensuel des produits restants </p>
 
 </div>
 </div>
