@@ -3,7 +3,7 @@
 #include <ctype.h>
 /**
  * \file fonction_C.c
- * \brief Pour compiler en DLL : gcc  -s -shared -O2 -o functions.dll -fPIC fonction_C.c
+ * \brief Pour compiler en DLL : " gcc  -s -shared -O2 -o functions.dll -fPIC fonction_C.c " dans un terminal
  * \author Corentin CHARTIER & Maël JAVER KALA
  */
 
@@ -44,10 +44,10 @@ void vente_et_prix_stockage(int vente, int *stock_P, float *cout_stock, float pr
     *stock_P -= vente;
     if (*stock_P < 0)
     {
-        printf("      Cout de RUPTURE  : %.2f\n", prix * 0.1 * abs(*stock_P));
+        // printf("      Cout de RUPTURE  : %.2f\n", prix * 0.1 * abs(*stock_P));
         *cout_rupture += prix * 0.1 * abs(*stock_P);
         *stock_P = 0;
-        printf("      RUPTURE DE STOCK\n");
+        // printf("      RUPTURE DE STOCK\n");
     }
     *cout_stock += (*stock_P) * (prix_stockage);
 }
