@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['vente_5fet_5fprix_5fstockage_0',['vente_et_prix_stockage',['../fonction___c_8c.html#a9b92071b3dcd701dadc0834cc2962c50',1,'fonction_C.c']]]
+  ['simu_5fpc_0',['simu_PC',['../namespace_code.html#a369e4603863d07fae6079a35e9b8f469',1,'Code']]],
+  ['simu_5fperiod_1',['simu_period',['../namespace_code.html#a61e55487b87eff4f7e26519e8401f1e5',1,'Code']]]
 ];

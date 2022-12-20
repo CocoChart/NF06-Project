@@ -1,6 +1,8 @@
 var _code_8py =
 [
     [ "lecture", "_code_8py.html#ab2f4c7035cf38545803b29748f8d376a", null ],
+    [ "simu_PC", "_code_8py.html#a369e4603863d07fae6079a35e9b8f469", null ],
+    [ "simu_period", "_code_8py.html#a61e55487b87eff4f7e26519e8401f1e5", null ],
     [ "calc_moy_X", "_code_8py.html#aaf4b0ddae3ad651f6b09546f26368254", null ],
     [ "calc_moy_Y", "_code_8py.html#a36c55244de552946ea94eae1c1f7c205", null ],
     [ "commandes_X", "_code_8py.html#a9b1b6b4054732110568c1021c690652e", null ],
@@ -66,6 +68,6 @@ var _code_8py =
     [ "temps_livraison_X", "_code_8py.html#a2019a68fe78fda925981dbf9b3232714", null ],
     [ "temps_livraison_Y", "_code_8py.html#a7da5ba8ae835a84280da283ac54045fc", null ],
     [ "value", "_code_8py.html#afcc7a4b78ecd8fa7e713f8cfa0f51017", null ],
-    [ "vente_X", "_code_8py.html#a74de2474c1c3386b667426459181b6a2", null ],
-    [ "vente_Y", "_code_8py.html#ad69f9a7c92487278c7f991a0b2cb8720", null ]
+    [ "vente_X", "_code_8py.html#ae9f13a587139d71e5c3e668e458323c3", null ],
+    [ "vente_Y", "_code_8py.html#a91d9a328bee6441e2eac9e462c78adc8", null ]
 ];
